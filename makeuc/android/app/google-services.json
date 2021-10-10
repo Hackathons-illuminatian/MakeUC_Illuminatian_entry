@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "465490864691",
+    "project_id": "makeuc2021",
+    "storage_bucket": "makeuc2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465490864691:android:f7e62c998172e6e5055146",
+        "android_client_info": {
+          "package_name": "com.illuminatian.makeuc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465490864691-r0q4p70mj4ht2pmelsvprubgjfguui85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtnmjUKWU0qQESAeui4v5yOyqY2Icn-m0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465490864691-r0q4p70mj4ht2pmelsvprubgjfguui85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

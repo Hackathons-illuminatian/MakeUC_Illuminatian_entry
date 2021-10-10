@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:makeuc/wrapper.dart';
 
 import '../Pages/Home.dart';
-import '../Pages/SignUp.dart';
-import '../Pages/Signin.dart';
+import '../Pages/auth/SignUp.dart';
+import '../Pages/auth/Signin.dart';
 import '../Pages/Welcome.dart';
 
 class RouteGenerator {
@@ -17,7 +18,7 @@ class RouteGenerator {
       case '/signup':
         return MaterialPageRoute(builder: (_) => SignUp());
       case '/signin':
-        return MaterialPageRoute(builder: (_) => Signin());
+        return MaterialPageRoute(builder: (_) => Wrapper());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();
