@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:makeuc/Pages/AddQuestion.dart';
+import 'package:makeuc/Pages/create_quiz.dart';
 import 'package:makeuc/wrapper.dart';
-
 import '../Pages/Home.dart';
 import '../Pages/auth/SignUp.dart';
-import '../Pages/auth/Signin.dart';
 import '../Pages/Welcome.dart';
 
 class RouteGenerator {
@@ -19,6 +19,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignUp());
       case '/signin':
         return MaterialPageRoute(builder: (_) => Wrapper());
+      case '/createquiz':
+        return MaterialPageRoute(builder: (_) => CreateQuiz());
+
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

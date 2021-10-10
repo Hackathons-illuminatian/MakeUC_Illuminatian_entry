@@ -7,7 +7,8 @@ class MyThemes {
       scaffoldBackgroundColor: Color(0xFFEBDB51),
       colorScheme: ColorScheme.light(),
       iconTheme: IconThemeData(color: Color(0xFF2F1E3F)),
-      shadowColor: Color(0xFF593978));
+      shadowColor: Color(0xFF593978),
+      buttonColor: Color(0xFFCFA54A));
 
   static final darkTheme = ThemeData(
       scaffoldBackgroundColor: Color(0xFF2F1E3F),
@@ -15,5 +16,6 @@ class MyThemes {
       iconTheme: IconThemeData(
         color: Color(0xFFEBDB51),
       ),
-      shadowColor: Color(0xFFCF9B3A));
+      shadowColor: Color(0xFFCF9B3A),
+      buttonColor: Color(0xFF4B3064));
 }
