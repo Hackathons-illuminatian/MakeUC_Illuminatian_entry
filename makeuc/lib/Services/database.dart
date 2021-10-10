@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -10,6 +9,14 @@ class DatabaseService {
         .catchError((e) {
       print(e.toString());
     });
+  }
+
+  getOptions(String quizId) async {
+    return await FirebaseFirestore.instance
+        .collection("Quiz")
+        .doc(quizId)
+        .collection("QNA")
+        .get();
   }
 
   Future<void> addQuestionData(quizData, String quizId) async {
@@ -25,13 +32,5 @@ class DatabaseService {
 
   getQuizData() async {
     return await FirebaseFirestore.instance.collection("Quiz").snapshots();
-  }
-
-  getQuestionData(String quizId) async {
-    return await FirebaseFirestore.instance
-        .collection("Quiz")
-        .doc(quizId)
-        .collection("QNA")
-        .get();
   }
 }

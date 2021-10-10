@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:makeuc/Pages/PlayQuiz.dart';
+import 'package:makeuc/Services/database.dart';
 import 'package:makeuc/Services/google_signin.dart';
 import 'package:pixel_border/pixel_border.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +14,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Stream quizStream;
+  DatabaseService databaseService = new DatabaseService();
+
+  Stream? quizzes;
+  List? item;
+  final db = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,14 +28,17 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.pushNamed(context, '/createquiz');
         },
-        backgroundColor: Theme.of(context).buttonColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         foregroundColor: Theme.of(context).iconTheme.color,
         focusColor: Theme.of(context).buttonColor,
         splashColor: Theme.of(context).buttonColor,
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text(
+          "Home",
+          style: TextStyle(fontFamily: "Pixel"),
+        ),
         actions: [
           TextButton(
               onPressed: () {
@@ -33,48 +46,45 @@ class _HomePageState extends State<HomePage> {
                     Provider.of<GoogleSignInProvider>(context, listen: false);
                 provider.logout();
               },
-              child: Text("Logout"))
+              child: Text("Logout", style: TextStyle(fontFamily: "Pixel")))
         ],
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(30),
-                    decoration: ShapeDecoration(
-                      shape: PixelBorder.solid(
-                        color: Theme.of(context).iconTheme.color!,
-                        borderRadius: BorderRadius.circular(15.0),
-                        pixelSize: 5.0,
+      body: StreamBuilder<QuerySnapshot>(
+        stream: db.collection('Quiz').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else
+            return ListView(
+              children: snapshot.data!.docs.map((doc) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => QuizPlay(
+                                (doc.data() as Map)['quizId'].toString())));
+                  },
+                  child: Card(
+                    child: ListTile(
+                      leading: Icon(Icons.play_arrow),
+                      title: Text(
+                        (doc.data() as Map)['quizTitle'],
+                        style: TextStyle(fontFamily: "Pixel"),
                       ),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/createquiz');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        color: Theme.of(context).iconTheme.color!,
-                        child: Text(
-                          "yee",
-                          style: TextStyle(
-                              color: Color(0xFF2F1E3F),
-                              fontSize: 50,
-                              fontFamily: 'Pixel'),
-                        ),
+                      subtitle: Text(
+                        (doc.data() as Map)['quizDesc'],
+                        style: TextStyle(fontFamily: "Pixel"),
                       ),
+                      tileColor: Theme.of(context).buttonColor,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                );
+              }).toList(),
+            );
+        },
       ),
     );
   }
